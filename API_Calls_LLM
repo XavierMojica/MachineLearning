@@ -39,3 +39,13 @@ for t in texts:
 # print(ret[0])
 
 
+#############
+#maybe add json to make output estitic better 
+
+system_content = "You are a professional cluster who looks at strings of sentences and identifies what clusters are present in them."
+
+llm(f'Below are 3 sentences, what cluster are present among them: {".     ".join(texts)} ')
+
+
+
+
