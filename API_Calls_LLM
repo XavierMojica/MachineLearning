@@ -1,3 +1,41 @@
+#pip install python-dotenv
+
+
 from dotenv import load_dotenv; load_dotenv()
 import openai
 import os
+
+client = openai.OpenAI(base_url = "https://api.endpoints.anyscale.com/v1", api_key = os.getenv("ANYSCALE_API"))
+
+def llm(user_content, system_content = system_content, temp =.2): 
+  chat_completion = client.chat.completions.creat(
+      model = "meta-llama/Llama-2-70b-chat-hf",                                     #Llama2 is first pass model, good place to begin 
+      messages = [{"role": "system", "content": system_content},                #no memory, starts new interaction (code chunk model to temp) no notion of length when start
+       {"role": "user", "content": user_content}],  
+      temperature = temp)
+  return chat_completion.choices[0].message.content 
+
+system_content = "You are a helfpul agent" 
+
+results = llm('Hi my name is Xavier and I would like to hear a story', system_content)
+
+print(results)
+
+
+
+
+###############################
+
+
+texts = ['I went to the store', 'I really do not like you', 'Mexican bread is the best']
+
+system_content = 'You are a professional writeer who identifies the associated tags in a document. You never provide any introduction text, you simply provide a list of keywords'
+
+ret = []
+for t in texts:
+  ret.append(llm(f'Only responding with keywords, can you please identify what keywords or topics are here: {t}', system_content))
+
+#ex 
+# print(ret[0])
+
+
