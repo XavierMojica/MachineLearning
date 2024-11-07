@@ -1,0 +1,26 @@
+import openai
+
+# Configure OpenAI client to use Groq
+client = openai.Client(
+    base_url="https://api.groq.com/openai/v1",
+    api_key="    "  # Replace with Groq API key
+)
+
+# Model configuration for LLaMA 3 70B
+MODEL = "llama3-70b-8192"
+
+# Define the prompt about Tucson's historic weather
+prompt = "What is the historic weather like in Tucson, Arizona? Please describe the typical temperatures, rainfall, and seasonal patterns."
+
+# Make the API call to Groq
+response = client.chat.completions.create(
+    model=MODEL,
+    messages=[
+        {"role": "user", "content": prompt}
+    ],
+    temperature=0.7,
+    max_tokens=500
+)
+
+# Print the response
+print(response.choices[0].message.content)
