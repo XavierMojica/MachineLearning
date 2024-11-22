@@ -26,3 +26,17 @@ print(predictions)
 
 
 
+#looking at the weights, how much attentio Bert pays to different words in the sentence 
+import torch
+from transformers import BertModel, BertTokenizer
+
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+model = BertModel.from_pretrained('bert-base-uncased')
+
+text = "BERT's attention mechanism is fascinating."
+inputs = tokenizer(text, return_tensors='pt', padding=True, truncation=True)
+outputs = model(**inputs, output_attentions=True)
+
+attention_weights = outputs.attentions
+print(attention_weights)
+
