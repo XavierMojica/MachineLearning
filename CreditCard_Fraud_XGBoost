@@ -76,6 +76,7 @@ rocauc = roc_auc_score(y_valid, predictions)
 print(f"ROC AUC: {rocauc:.3f}")
 
 
+##https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud?resource=download
 
 
 
